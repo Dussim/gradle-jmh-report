@@ -15,21 +15,33 @@
  */
 package io.morethan.jmhreport.gradle
 
+import io.morethan.jmhreport.gradle.task.JmhReportTask
+import me.champeau.jmh.JMHTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import io.morethan.jmhreport.gradle.task.JmhReportTask
+import org.gradle.kotlin.dsl.assign
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.register
 
-val PLUGIN_ID: String = "io.morethan.jmhreport" //see io.morethan.jmhreport.properties
-val EXTENSION: String = "jmhReport"
-val CONVENTION: String = "awsConvention"
+private const val EXTENSION: String = "jmhReport"
 
-public class JmhReportPlugin : Plugin<Project> {
+class JmhReportPlugin : Plugin<Project> {
+    override fun apply(project: Project): Unit =
+        with(project) {
+            val extension = extensions.create<JmhReportExtension>(EXTENSION)
 
-    lateinit var extension: JmhReportExtension
+            extension.jmhReportOutput.convention(layout.buildDirectory.dir("reports/jmh"))
 
-    override fun apply(project: Project?) {
-        extension = project!!.extensions.create(EXTENSION, JmhReportExtension::class.java);
-        project.tasks.create("jmhReport", JmhReportTask::class.java).description = "Create an HTML report for the latest JMH results.";
-    }
+            pluginManager.withPlugin("me.champeau.jmh") {
+                extension.jmhResultPath.convention(
+                    tasks.named<JMHTask>("jmh").flatMap { it.resultsFile },
+                )
+            }
 
+            tasks.register<JmhReportTask>("jmhReport") {
+                jmhResultPath = extension.jmhResultPath
+                jmhReportOutput = extension.jmhReportOutput
+            }
+        }
 }

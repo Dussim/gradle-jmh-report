@@ -7,18 +7,14 @@ import java.util.zip.ZipInputStream
 
 fun ZipInputStream.extract(targetDirectory: File) {
     while (true) {
-        val entry: ZipEntry? = this.getNextEntry();
-        if (entry == null) {
-            break;
-        }
-        val entryFile = File(targetDirectory, entry.getName())
+        val entry: ZipEntry = nextEntry ?: break
+        val entryFile = File(targetDirectory, entry.name)
         if (entry.isDirectory) {
-            entryFile.mkdirs();
+            entryFile.mkdirs()
         } else {
             FileOutputStream(entryFile).use { fileOutputStream ->
-                this.copyTo(fileOutputStream);
+                copyTo(fileOutputStream)
             }
         }
-
     }
 }

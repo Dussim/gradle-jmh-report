@@ -15,8 +15,11 @@
  */
 package io.morethan.jmhreport.gradle
 
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
+
 /**The global configuration of the plugin. */
-open class JmhReportExtension {
-    var jmhResultPath: String? = "build/reports/jmh/results.json"
-    var jmhReportOutput: String? = "build/reports/jmh"
+abstract class JmhReportExtension {
+    abstract val jmhResultPath: RegularFileProperty
+    abstract val jmhReportOutput: DirectoryProperty
 }
