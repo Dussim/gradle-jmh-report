@@ -79,6 +79,6 @@ abstract class JmhReportTask : DefaultTask() {
             reportFile.forEachLine { line -> writer.println(line) }
             writer.println("};")
         }
-        println("JMH Report generated, please open: file://$outputFolder/index.html")
+        println("JMH Report generated, please open: ${outputFolder.file("index.html")}")
     }
 }

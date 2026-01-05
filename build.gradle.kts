@@ -14,7 +14,7 @@ dependencies {
 }
 
 group = "xyz.dussim.jmhreport"
-version = "0.10.0"
+version = "0.10.1"
 
 gradlePlugin {
     website = "https://github.com/Dussim/gradle-jmh-report"
