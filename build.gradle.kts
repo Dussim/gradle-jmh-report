@@ -3,14 +3,18 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
 plugins {
     `kotlin-dsl`
     id("com.gradle.plugin-publish").version("2.0.0")
-    id("com.github.ben-manes.versions").version("0.53.0")
 }
 
 dependencies {
+    compileOnly("me.champeau.jmh:me.champeau.jmh.gradle.plugin:0.7.3")
+
     implementation(gradleApi())
     implementation(gradleKotlinDsl())
 
-    compileOnly("me.champeau.jmh:me.champeau.jmh.gradle.plugin:0.7.3")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.0.1")
+    testImplementation("org.assertj:assertj-core:3.27.6")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 group = "xyz.dussim.jmhreport"
@@ -76,20 +80,8 @@ tasks.withType<JavaCompile>().configureEach {
     options.release = 17
 }
 
-//region dependencies
-fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
-    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
-    val isStable = stableKeyword || regex.matches(version)
-    return isStable.not()
-}
-
-tasks.dependencyUpdates {
-    checkForGradleUpdate = true
-    checkBuildEnvironmentConstraints = true
-    rejectVersionIf {
-        isNonStable(candidate.version)
-    }
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }
 
 tasks.wrapper {
