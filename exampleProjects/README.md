@@ -1,15 +1,11 @@
 # JMH example projects
 
 There is:
-- java-benchmarks: benchmarking simple things of Java
-- kotlin-benchmarks: benchmarking simple things of Kotlin
 
-h1. How to execute
+- benchmarks: benchmarking simple things of Java and Kotlin
 
-```
-./gradlew jar; ./gradlew -p exampleProjects/java-benchmarks/ jmh 
-```
+# How to execute
 
 ```
-./gradlew jar; ./gradlew -p exampleProjects/kotlin-benchmarks/ jmh 
+./gradlew -p exampleProjects/benchmarks/ jmh 
 ```

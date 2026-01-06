@@ -1,14 +1,12 @@
 package io.morethan.kotlinbenchmarks
 
-import org.openjdk.jmh.annotations.State
-import org.openjdk.jmh.annotations.Scope
-import org.openjdk.jmh.annotations.BenchmarkMode
-import org.openjdk.jmh.annotations.Mode
 import org.openjdk.jmh.annotations.Benchmark
+import org.openjdk.jmh.annotations.BenchmarkMode
 import org.openjdk.jmh.annotations.Fork
 import org.openjdk.jmh.annotations.Measurement
-import org.openjdk.jmh.annotations.Warmup
+import org.openjdk.jmh.annotations.Mode
 import org.openjdk.jmh.annotations.OutputTimeUnit
+import org.openjdk.jmh.annotations.Warmup
 import java.util.concurrent.TimeUnit
 
 @Fork(value = 1)
@@ -16,17 +14,14 @@ import java.util.concurrent.TimeUnit
 @Measurement(iterations = 1)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-open public class QuickBenchmark {
-    
-    
+open class QuickBenchmark {
     @Benchmark
-    public fun sleep50Milliseconds() {
-        Thread.sleep(50);
+    fun sleep50Milliseconds() {
+        Thread.sleep(50)
     }
 
     @Benchmark
-    public fun sleep100Milliseconds() {
-        Thread.sleep(100);
+    fun sleep100Milliseconds() {
+        Thread.sleep(100)
     }
-
 }

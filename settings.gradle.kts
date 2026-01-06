@@ -10,4 +10,6 @@ dependencyResolutionManagement {
     }
 }
 
+includeBuild("exampleProjects/benchmarks")
+
 rootProject.name = "gradle-jmh-report"

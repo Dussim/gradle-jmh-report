@@ -29,7 +29,7 @@
 
 
 ## Getting Started
-- Setup JMH for your project (However you wanne do it, you can use a [plugin](https://github.com/melix/jmh-gradle-plugin) or a simple [do-it-your-self script](exampleProjects/jmh.gradle). 
+- Setup JMH for your project (However you wanne do it, you can use a [plugin](https://github.com/melix/jmh-gradle-plugin) or a simple [do-it-your-self script](exampleProjects/jmh.gradle.kts). 
 - Add the plugin:
 ```
 plugins {
@@ -55,15 +55,15 @@ jmhReport {
 
 ## Project Build
 - Prepare the project for import into Eclipse: `./gradlew cleanEclipse eclipse`
-- Execute the examples: `./gradlew jar ;./gradlew -p exampleProjects/java-benchmarks/ jmh`
+- Execute the examples: `./gradlew -p exampleProjects/java-benchmarks/ jmh`
 - How to publish the Gradle plugin:
   - (Optional) Integrate new version of https://github.com/jzillmann/jmh-visualizer
     - `npm run providedZip`
     - `mv jmh-visualizer.zip ../../eclipse/gradle-jmh-report/src/main/resources/`
   - Increase version in _gradle.properties_
   - Update _News_ and _Getting Started_ in _README.md_
-  - Update version number of in build.gradle for all example projects
-  - Test report: `./gradlew jar ;./gradlew  jmh -p exampleProjects/java-benchmarks/ -Pinclude=".*QuickBenchmark.*"`
+  - Update version number of in build.gradle.kts for all example projects
+  - Test report: `./gradlew jmh -p exampleProjects/java-benchmarks/ -Pinclude=".*QuickBenchmark.*"`
   - Commit & Push
   - tag with
     - `git tag -a $releaseVersion -m "$releaseVersion release"`

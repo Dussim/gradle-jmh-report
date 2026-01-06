@@ -1,0 +1,13 @@
+@file:Suppress("UnstableApiUsage")
+
+pluginManagement {
+    repositories.gradlePluginPortal()
+    includeBuild("../..") // for plugin build
+}
+
+dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    repositories.mavenCentral()
+}
+
+rootProject.name = "benchmarks"
